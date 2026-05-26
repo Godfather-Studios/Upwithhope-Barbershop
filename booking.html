@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;600;700&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet">
+<title>Book Your Cut — Up With Hope Barbershop</title>
+<style>
+
+  :root { --red:#C8102E; --red-dark:#9B0B22; --black:#0A0A0A; --gray-dark:#1A1A1A; --gray-mid:#2C2C2C; --white:#F5F0EB; --cream:#E8E0D5; }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior:smooth; }
+  body { font-family:'Barlow',sans-serif; background:var(--black); color:var(--white); overflow-x:hidden; }
+  body::before { content:''; position:fixed; inset:0; background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E"); pointer-events:none; z-index:9999; opacity:0.3; }
+  nav { position:fixed; top:0; left:0; right:0; z-index:1000; display:flex; align-items:center; justify-content:space-between; padding:0 5%; height:72px; background:rgba(10,10,10,0.92); backdrop-filter:blur(12px); border-bottom:1px solid rgba(200,16,46,0.25); }
+  .nav-logo { display:flex; align-items:center; gap:12px; text-decoration:none; }
+  .logo-svg { width:44px; height:44px; }
+  .nav-brand { display:flex; flex-direction:column; line-height:1; }
+  .nav-brand-main { font-family:'Bebas Neue',sans-serif; font-size:20px; color:var(--white); letter-spacing:2px; }
+  .nav-brand-sub { font-family:'Barlow Condensed',sans-serif; font-size:10px; letter-spacing:4px; color:var(--red); text-transform:uppercase; }
+  .nav-links { display:flex; gap:36px; list-style:none; }
+  .nav-links a { font-family:'Barlow Condensed',sans-serif; font-size:13px; letter-spacing:2px; text-transform:uppercase; color:var(--cream); text-decoration:none; position:relative; transition:color 0.2s; }
+  .nav-links a::after { content:''; position:absolute; bottom:-4px; left:0; width:0; height:1px; background:var(--red); transition:width 0.3s; }
+  .nav-links a:hover { color:var(--white); }
+  .nav-links a:hover::after { width:100%; }
+  .nav-cta { font-family:'Barlow Condensed',sans-serif; font-size:13px; letter-spacing:2px; text-transform:uppercase; color:var(--white); background:var(--red); border:none; padding:10px 24px; cursor:pointer; text-decoration:none; transition:background 0.2s; clip-path:polygon(8px 0%,100% 0%,calc(100% - 8px) 100%,0% 100%); }
+  .nav-cta:hover { background:var(--red-dark); }
+  .hamburger { display:none; flex-direction:column; gap:5px; cursor:pointer; padding:4px; }
+  .hamburger span { display:block; width:24px; height:2px; background:var(--white); }
+  .mobile-menu { display:none; position:fixed; top:72px; left:0; right:0; background:rgba(10,10,10,0.97); backdrop-filter:blur(12px); padding:32px 8%; z-index:999; border-bottom:1px solid rgba(200,16,46,0.3); flex-direction:column; gap:20px; }
+  .mobile-menu.open { display:flex; }
+  .mobile-menu a { font-family:'Barlow Condensed',sans-serif; font-size:22px; letter-spacing:3px; text-transform:uppercase; color:var(--white); text-decoration:none; border-bottom:1px solid rgba(255,255,255,0.06); padding-bottom:16px; }
+  .mobile-menu a:hover { color:var(--red); }
+  footer { background:var(--gray-dark); border-top:1px solid rgba(200,16,46,0.2); padding:40px 8%; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px; }
+  .footer-brand { font-family:'Bebas Neue',sans-serif; font-size:22px; letter-spacing:3px; color:var(--white); }
+  .footer-tagline { font-family:'Barlow Condensed',sans-serif; font-size:11px; letter-spacing:3px; color:var(--red); text-transform:uppercase; margin-top:2px; }
+  .footer-copy { font-size:12px; color:rgba(245,240,235,0.3); letter-spacing:1px; }
+  .btn-primary { font-family:'Barlow Condensed',sans-serif; font-size:14px; letter-spacing:3px; text-transform:uppercase; color:var(--white); background:var(--red); border:none; padding:16px 36px; cursor:pointer; text-decoration:none; display:inline-block; transition:background 0.2s,transform 0.1s; clip-path:polygon(12px 0%,100% 0%,calc(100% - 12px) 100%,0% 100%); }
+  .btn-primary:hover { background:var(--red-dark); transform:translateY(-1px); }
+  .btn-secondary { font-family:'Barlow Condensed',sans-serif; font-size:14px; letter-spacing:3px; text-transform:uppercase; color:var(--white); background:transparent; border:1px solid rgba(245,240,235,0.3); padding:15px 36px; cursor:pointer; text-decoration:none; display:inline-block; transition:border-color 0.2s,color 0.2s; }
+  .btn-secondary:hover { border-color:var(--red); color:var(--red); }
+  .section-label { font-family:'Barlow Condensed',sans-serif; font-size:11px; letter-spacing:5px; text-transform:uppercase; color:var(--red); margin-bottom:16px; display:flex; align-items:center; gap:10px; }
+  .section-label::before { content:''; display:block; width:24px; height:1px; background:var(--red); }
+  .section-title { font-family:'Bebas Neue',sans-serif; font-size:clamp(38px,5vw,64px); letter-spacing:2px; line-height:0.95; color:var(--white); margin-bottom:24px; }
+  .reveal { opacity:0; transform:translateY(30px); transition:opacity 0.7s ease,transform 0.7s ease; }
+  .reveal.visible { opacity:1; transform:translateY(0); }
+  @media(max-width:900px){ .nav-links,.nav-cta{display:none;} .hamburger{display:flex;} footer{flex-direction:column;text-align:center;} }
+
+  .page-hero { padding:160px 8% 80px; background:linear-gradient(135deg,var(--black) 60%,rgba(200,16,46,0.08) 100%); border-bottom:1px solid rgba(200,16,46,0.2); }
+  .page-hero-label { font-family:'Barlow Condensed',sans-serif; font-size:11px; letter-spacing:5px; text-transform:uppercase; color:var(--red); margin-bottom:12px; display:flex; align-items:center; gap:10px; }
+  .page-hero-label::before { content:''; display:block; width:24px; height:1px; background:var(--red); }
+  .page-hero h1 { font-family:'Bebas Neue',sans-serif; font-size:clamp(52px,8vw,96px); letter-spacing:3px; line-height:0.9; color:var(--white); }
+  .page-hero h1 span { color:var(--red); }
+  .page-hero p { font-size:16px; font-weight:300; color:rgba(245,240,235,0.55); margin-top:20px; max-width:500px; line-height:1.7; }
+
+  .booking-section { padding:80px 8%; }
+  .booking-intro { max-width:640px; margin:0 auto 64px; text-align:center; }
+  .booking-intro p { font-size:15px; line-height:1.8; color:rgba(245,240,235,0.6); font-weight:300; }
+
+  .booking-form-wrap { max-width:640px; margin:0 auto; }
+  .form-group { margin-bottom:28px; }
+  .form-label { font-family:'Barlow Condensed',sans-serif; font-size:11px; letter-spacing:3px; text-transform:uppercase; color:var(--white); display:block; margin-bottom:10px; }
+  .form-input, .form-select { width:100%; background:var(--gray-mid); border:1px solid rgba(255,255,255,0.08); color:var(--white); padding:14px 16px; font-family:'Barlow',sans-serif; font-size:14px; outline:none; transition:border-color 0.2s; appearance:none; -webkit-appearance:none; }
+  .form-input:focus, .form-select:focus { border-color:var(--red); }
+  .form-input::placeholder { color:rgba(245,240,235,0.25); }
+  .form-select option { background:var(--gray-dark); color:var(--white); }
+  .form-row { display:grid; grid-template-columns:1fr 1fr; gap:20px; }
+  .form-note { font-size:12px; color:rgba(245,240,235,0.3); margin-top:6px; }
+
+  .service-cards { display:grid; grid-template-columns:repeat(2,1fr); gap:10px; margin-top:10px; }
+  .service-option { background:var(--gray-mid); border:2px solid transparent; padding:18px 20px; cursor:pointer; transition:border-color 0.2s,background 0.2s; }
+  .service-option:hover { border-color:rgba(200,16,46,0.4); }
+  .service-option.selected { border-color:var(--red); background:rgba(200,16,46,0.08); }
+  .service-option-name { font-family:'Barlow Condensed',sans-serif; font-size:16px; letter-spacing:1px; font-weight:700; color:var(--white); }
+  .service-option-price { font-size:12px; color:var(--red); margin-top:4px; letter-spacing:1px; }
+
+  .wa-btn { display:block; width:100%; text-align:center; background:#25D366; color:white; font-family:'Barlow Condensed',sans-serif; font-size:16px; letter-spacing:3px; text-transform:uppercase; padding:20px; text-decoration:none; margin-top:36px; transition:background 0.2s,transform 0.1s; border:none; cursor:pointer; clip-path:polygon(12px 0%,100% 0%,calc(100% - 12px) 100%,0% 100%); }
+  .wa-btn:hover { background:#1da851; transform:translateY(-1px); }
+  .wa-icon { font-size:20px; margin-right:10px; }
+
+  .info-strip { display:grid; grid-template-columns:repeat(3,1fr); gap:2px; margin-top:64px; }
+  .info-card { background:var(--gray-dark); padding:32px 28px; text-align:center; }
+  .info-card-icon { font-size:28px; margin-bottom:12px; }
+  .info-card-title { font-family:'Barlow Condensed',sans-serif; font-size:15px; letter-spacing:2px; text-transform:uppercase; color:var(--white); margin-bottom:6px; }
+  .info-card-text { font-size:13px; color:rgba(245,240,235,0.5); line-height:1.6; font-weight:300; }
+
+  @media(max-width:640px){
+    .form-row { grid-template-columns:1fr; }
+    .service-cards { grid-template-columns:1fr; }
+    .info-strip { grid-template-columns:1fr; }
+  }
+</style>
+</head>
+<body>
+<nav>
+  <a class="nav-logo" href="index.html"><svg class="logo-svg" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="44" height="44" rx="4" fill="#C8102E"/>
+  <ellipse cx="22" cy="15" rx="7" ry="7.5" fill="none" stroke="#F5F0EB" stroke-width="1.4"/>
+  <path d="M15.5 13 Q17 10 19 12 Q21 14 22 11 Q23 8 26 10 Q28 12 28.5 13" stroke="#F5F0EB" stroke-width="1.3" fill="none" stroke-linecap="round"/>
+  <path d="M15 15.5 Q13 16 13.5 18 Q14 19.5 15.5 19" stroke="#F5F0EB" stroke-width="1.2" fill="none"/>
+  <path d="M29 15.5 Q31 16 30.5 18 Q30 19.5 28.5 19" stroke="#F5F0EB" stroke-width="1.2" fill="none"/>
+  <path d="M19.5 22.5 L19 27 M24.5 22.5 L25 27" stroke="#F5F0EB" stroke-width="1.3" stroke-linecap="round"/>
+  <path d="M12 34 Q13 27 19 27 L25 27 Q31 27 32 34" stroke="#F5F0EB" stroke-width="1.4" fill="none" stroke-linecap="round"/>
+  <path d="M19.5 20 Q22 22.5 24.5 20" stroke="#F5F0EB" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+  <path d="M20 20.5 Q22 24 24 20.5" stroke="#F5F0EB" stroke-width="1.1" fill="none"/>
+  <path d="M19 18.5 Q20.5 19.5 22 18.8 Q23.5 19.5 25 18.5" stroke="#F5F0EB" stroke-width="1.1" fill="none" stroke-linecap="round"/>
+</svg><div class="nav-brand"><span class="nav-brand-main">Up With Hope</span><span class="nav-brand-sub">Barbershop</span></div></a>
+  <ul class="nav-links">
+    <li><a href="index.html#about">About</a></li>
+    <li><a href="index.html#services">Services</a></li>
+    <li><a href="blog.html">Blog</a></li>
+    <li><a href="index.html#gallery">Gallery</a></li>
+    <li><a href="index.html#contact">Contact</a></li>
+  </ul>
+  <a class="nav-cta" href="booking.html">Book Now</a>
+  <div class="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></div>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html#about" onclick="closeMenu()">About</a>
+  <a href="index.html#services" onclick="closeMenu()">Services</a>
+  <a href="blog.html" onclick="closeMenu()">Blog</a>
+  <a href="index.html#gallery" onclick="closeMenu()">Gallery</a>
+  <a href="index.html#contact" onclick="closeMenu()">Contact</a>
+  <a href="booking.html" onclick="closeMenu()" style="color:var(--red);">✂️ Book Your Cut</a>
+</div>
+
+<div class="page-hero">
+  <p class="page-hero-label">Ready For a Fresh Cut?</p>
+  <h1>Book Your<span> Cut</span></h1>
+  <p>Fill in your details below and we'll send your booking request straight to WhatsApp — quick, easy, no app needed.</p>
+</div>
+
+<section class="booking-section reveal">
+  <div class="booking-form-wrap">
+    <div class="form-group">
+      <label class="form-label">Your Name *</label>
+      <input class="form-input" type="text" id="clientName" placeholder="e.g. Titus Nghishidivali" />
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label">Phone Number *</label>
+        <input class="form-input" type="tel" id="clientPhone" placeholder="+264 81 000 0000" />
+      </div>
+      <div class="form-group">
+        <label class="form-label">Preferred Date *</label>
+        <input class="form-input" type="date" id="clientDate" />
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Preferred Time</label>
+      <select class="form-select" id="clientTime">
+        <option value="">Select a time slot</option>
+        <option>08:00 AM</option>
+        <option>09:00 AM</option>
+        <option>10:00 AM</option>
+        <option>11:00 AM</option>
+        <option>12:00 PM</option>
+        <option>01:00 PM</option>
+        <option>02:00 PM</option>
+        <option>03:00 PM</option>
+        <option>04:00 PM</option>
+        <option>05:00 PM</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Select Service *</label>
+      <div class="service-cards" id="serviceCards">
+        <div class="service-option" onclick="selectService(this,'Adult Haircut - N$80')">
+          <div class="service-option-name">✂️ Adult Haircut</div>
+          <div class="service-option-price">N$ 80.00</div>
+        </div>
+        <div class="service-option" onclick="selectService(this,'Kids Cut - N$60')">
+          <div class="service-option-name">👦 Kids Cut</div>
+          <div class="service-option-price">N$ 60.00</div>
+        </div>
+        <div class="service-option" onclick="selectService(this,'Trim & Taper - N$30')">
+          <div class="service-option-name">⚡ Trim & Taper</div>
+          <div class="service-option-price">N$ 30.00</div>
+        </div>
+        <div class="service-option" onclick="selectService(this,'Beard Grooming - N$20')">
+          <div class="service-option-name">🧔 Beard Grooming</div>
+          <div class="service-option-price">N$ 20.00</div>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Any Special Requests?</label>
+      <input class="form-input" type="text" id="clientNotes" placeholder="e.g. Low fade, keep the top long..." />
+    </div>
+
+    <button class="wa-btn" onclick="sendBooking()">
+      <span class="wa-icon">💬</span> Send Booking via WhatsApp
+    </button>
+    <p style="text-align:center;margin-top:16px;font-size:12px;color:rgba(245,240,235,0.3);letter-spacing:1px;">
+      This opens WhatsApp with your booking details pre-filled. We'll confirm your slot shortly.
+    </p>
+  </div>
+
+  <div class="info-strip">
+    <div class="info-card"><div class="info-card-icon">📍</div><div class="info-card-title">Location</div><div class="info-card-text">74 Nickel Street<br>Prosperita, Windhoek</div></div>
+    <div class="info-card"><div class="info-card-icon">🕐</div><div class="info-card-title">Hours</div><div class="info-card-text">Mon – Sat: 8AM – 6PM<br>Sunday: By appointment</div></div>
+    <div class="info-card"><div class="info-card-icon">📞</div><div class="info-card-title">Call Us</div><div class="info-card-text"><a href="tel:+264810441938" style="color:var(--red);text-decoration:none;">+264 81 044 1938</a></div></div>
+  </div>
+</section>
+
+<footer>
+  <div><div class="footer-brand">Up With Hope Barbershop</div><div class="footer-tagline">Sharp Cuts. Clean Confidence.</div></div>
+  <div class="footer-copy">© 2026 Up With Hope Barbershop · Prosperita, Windhoek</div>
+  <div style="font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:2px;color:rgba(245,240,235,0.2);text-transform:uppercase;">Designed & Built by <span style="color:rgba(245,240,235,0.45);">GodFather Studios</span></div>
+</footer>
+<script>
+  function toggleMenu(){document.getElementById('mobileMenu').classList.toggle('open');}
+  function closeMenu(){document.getElementById('mobileMenu').classList.remove('open');}
+  document.querySelectorAll('.reveal').forEach(r=>new IntersectionObserver((e,o)=>{e.forEach(en=>{if(en.isIntersecting){en.target.classList.add('visible');o.unobserve(en.target);}});},{threshold:0.1}).observe(r));
+  window.addEventListener('scroll',()=>{const n=document.querySelector('nav');n.style.background=window.scrollY>60?'rgba(10,10,10,0.98)':'rgba(10,10,10,0.92)';});
+</script>
+<script>
+  let selectedService = '';
+  function selectService(el, service) {
+    document.querySelectorAll('.service-option').forEach(o => o.classList.remove('selected'));
+    el.classList.add('selected');
+    selectedService = service;
+  }
+  function sendBooking() {
+    const name = document.getElementById('clientName').value.trim();
+    const phone = document.getElementById('clientPhone').value.trim();
+    const date = document.getElementById('clientDate').value;
+    const time = document.getElementById('clientTime').value;
+    const notes = document.getElementById('clientNotes').value.trim();
+    if (!name) { alert('Please enter your name.'); return; }
+    if (!phone) { alert('Please enter your phone number.'); return; }
+    if (!date) { alert('Please select a preferred date.'); return; }
+    if (!selectedService) { alert('Please select a service.'); return; }
+    const formatted = `Hello Up With Hope Barbershop! I'd like to book an appointment.%0A%0A👤 *Name:* ${encodeURIComponent(name)}%0A📞 *Phone:* ${encodeURIComponent(phone)}%0A📅 *Date:* ${encodeURIComponent(date)}%0A🕐 *Time:* ${encodeURIComponent(time || 'Flexible')}%0A✂️ *Service:* ${encodeURIComponent(selectedService)}${notes ? '%0A📝 *Notes:* ' + encodeURIComponent(notes) : ''}%0A%0APlease confirm my slot. Thank you!`;
+    window.open(`https://wa.me/264810441938?text=${formatted}`, '_blank');
+  }
+</script>
+</body>
+</html>
